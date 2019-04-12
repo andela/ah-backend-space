@@ -5,19 +5,18 @@ from django.views import defaults as default_views
 from rest_framework.documentation import include_docs_urls
 from rest_framework_swagger.views import get_swagger_view
 
-core_schema_view = include_docs_urls(title='AH Haven Space Sprinters API')
-schema_view = get_swagger_view(title='AH Haven Space Sprinters API')
+core_schema_view = include_docs_urls(title='Authors Haven Space  API')
+schema_view = get_swagger_view(title='Authors Haven Space  API')
 
 urlpatterns = [
     path(settings.ADMIN_URL, admin.site.urls),
     path('api/', include(('authors.apps.authentication.urls', 'authentication'), namespace='auth')),
     path('swagger/', schema_view),
     path('', core_schema_view),
-    path('api/', include(('authors.apps.articles.urls','articles'), namespace='article')),
-    path('api/articles/', include(('authors.apps.comments.urls','comments'), namespace='comments')),
-    path('api/profiles/', include(('authors.apps.profiles.urls','profiles'),  namespace='profiles'))
-
-
+    path('api/', include(('authors.apps.articles.urls', 'articles'), namespace='article')),
+    path('api/articles/', include(('authors.apps.comments.urls', 'comments'), namespace='comments')),
+    path('api/profiles/', include(('authors.apps.profiles.urls', 'profiles'),  namespace='profiles')),
+    path('api/', include('authors.apps.social_auth.urls', namespace='social-auth')),
 ]
 
 if settings.DEBUG:
