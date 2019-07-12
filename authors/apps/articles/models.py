@@ -49,6 +49,9 @@ class Article(models.Model):
         'profiles.Profile',
         on_delete=models.CASCADE,
         related_name='articles')
+    
+    class Meta:
+        ordering=['-created_at']
 
     def _get_unique_slug(self):
         slug = slugify(self.title)

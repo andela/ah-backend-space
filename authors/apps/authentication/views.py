@@ -1,4 +1,5 @@
 import json
+import os
 
 from django.conf import settings
 from django.contrib.sites.shortcuts import get_current_site
@@ -154,10 +155,11 @@ class ResetPasswordEmail(CreateAPIView):
             current_site = get_current_site(request)
             token = password_rest_token.make_token(user),
             uidb64 = urlsafe_base64_encode(force_bytes(data['email'])).decode()
+            RESET_PASSWORD_REDIRECT_DOMAIN = os.environ['RESET_PASSWORD_REDIRECT_DOMAIN']
             body = json.dumps({
                 'message': 'Please use the url below to rest your password,\
                             This expires after an hour, Thank you.',
-                'domain': current_site.domain + f'/api/reset/{uidb64}/{token[0]}',
+                'domain': f'{RESET_PASSWORD_REDIRECT_DOMAIN}/reset-password?uuid={uidb64}&token={token[0]}',
             })
             from_email = settings.DEFAULT_FROM_EMAIL
             to_email = data['email']
