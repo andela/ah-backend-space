@@ -203,7 +203,7 @@ class ResetEmailSerializer(serializers.ModelSerializer):
         try:
             valid_email = User.objects.get(email=value)
         except Exception:
-            raise serializers.ValidationError(f"{value} email is Invalid")
+            raise serializers.ValidationError(f"{value} is Invalid")
         return value
 
     class Meta:
